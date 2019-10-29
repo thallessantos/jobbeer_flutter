@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:jobbeer_flutter/app/pages/jobs/widgets/custom_about_dialog.dart';
 import 'package:jobbeer_flutter/app/shared/configuration.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MenuDrawer extends StatelessWidget {
   @override
@@ -16,8 +19,14 @@ class MenuDrawer extends StatelessWidget {
           _buildDrawerHeader(),
           ListTile(
             leading: Icon(Icons.star_border),
-            title: Text('Avaliar o Jobeer'),
-            onTap: () {},
+            title: Text('Avaliar o ${Configuration.APP_NAME}'),
+            onTap: () {
+              if (Platform.isAndroid) {
+                launch("market://details?id=${Configuration.APP_PACKAGE_NAME}");
+              } else if (Platform.isIOS) {
+                launch("https://itunes.apple.com/app/id${Configuration.APP_IOS_ID}?action=write-review");
+              }
+            },
           ),
           ListTile(
             leading: Icon(Icons.info_outline),
@@ -29,7 +38,9 @@ class MenuDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.tag_faces),
             title: Text('Buy us a beer'),
-            onTap: () {},
+            onTap: () {
+              launch(Configuration.DONATION_PAYPAL_LINK);
+            },
           ),
         ],
       ),

@@ -19,6 +19,11 @@ abstract class Configuration {
   static const DESIGN_BASED_WIDTH = 400.0;
   static const DESIGN_BASED_HEIGHT = 640.0;
 
+  static const APP_PACKAGE_NAME = "br.com.app-package-name";
+  static const APP_IOS_ID = 123456;
+
+  static const DONATION_PAYPAL_LINK = "";
+
   static String getAdmobAppId() {
     if (Platform.isAndroid) {
       return ADMOB_APP_ID_ANDROID;
