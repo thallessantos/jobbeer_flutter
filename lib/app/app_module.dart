@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 
@@ -15,7 +16,8 @@ class AppModule extends ModuleWidget {
   @override
   List<Dependency> get dependencies => [
     Dependency((i) => Dio()),
-    Dependency((i) => CustomDio(i.getDependency<Dio>()))
+    Dependency((i) => CustomDio(i.getDependency<Dio>())),
+    Dependency((i) => FirebaseAnalytics()),
   ];
 
   @override

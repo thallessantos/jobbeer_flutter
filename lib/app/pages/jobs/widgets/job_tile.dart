@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
+import 'package:jobbeer_flutter/app/app_module.dart';
+import 'package:jobbeer_flutter/app/shared/configuration.dart';
 import 'package:jobbeer_flutter/app/shared/models/job_model.dart';
 
 class JobTile extends StatelessWidget {
+  final analytics = AppModule.to.getDependency<FirebaseAnalytics>();
   final JobModel job;
 
   JobTile(this.job);
@@ -58,6 +62,13 @@ class JobTile extends StatelessWidget {
               icon: Icon(Icons.link, color: Colors.grey),
               text: InkWell(
                 onTap: () async {
+                  await analytics.logEvent(
+                    name: Configuration.EVENT_OPEN_JOB_LINK,
+                    parameters: {
+                      "title": job.title,
+                      "site": job.url.split("/")[2], //Get the site address in the URL
+                    },
+                  );
                   await launch(job.url);
                 },
                 child: Text(

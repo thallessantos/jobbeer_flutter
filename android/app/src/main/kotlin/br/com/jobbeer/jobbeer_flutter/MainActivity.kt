@@ -1,4 +1,4 @@
-package br.com.jobbeer.jobbeer_flutter
+package app.jobbeer.jobbeer_flutter
 
 import android.os.Bundle
 

@@ -4,12 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
+import 'package:jobbeer_flutter/app/app_module.dart';
 import 'package:jobbeer_flutter/app/pages/jobs/widgets/custom_about_dialog.dart';
 import 'package:jobbeer_flutter/app/shared/configuration.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MenuDrawer extends StatelessWidget {
+  final analytics = AppModule.to.getDependency<FirebaseAnalytics>();
+  
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -21,6 +25,7 @@ class MenuDrawer extends StatelessWidget {
             leading: Icon(Icons.star_border),
             title: Text('Avaliar o ${Configuration.APP_NAME}'),
             onTap: () {
+              analytics.logEvent(name: Configuration.EVENT_RATING_APP);
               if (Platform.isAndroid) {
                 launch("market://details?id=${Configuration.APP_PACKAGE_NAME}");
               } else if (Platform.isIOS) {
@@ -32,6 +37,7 @@ class MenuDrawer extends StatelessWidget {
             leading: Icon(Icons.info_outline),
             title: Text('Sobre o app'),
             onTap: () {
+              analytics.logEvent(name: Configuration.EVENT_SHOW_ABOUT_DIALOG);
               showDialog(context: context, builder: (_) => CustomAboutDialog());
             },
           ),
@@ -39,6 +45,7 @@ class MenuDrawer extends StatelessWidget {
             leading: Icon(Icons.tag_faces),
             title: Text('Buy us a beer'),
             onTap: () {
+              analytics.logEvent(name: Configuration.EVENT_OPEN_DONATION_LINK);
               launch(Configuration.DONATION_PAYPAL_LINK);
             },
           ),

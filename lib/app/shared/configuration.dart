@@ -1,12 +1,14 @@
 import 'dart:io';
 
 abstract class Configuration {
+  static const APP_NAME = "AppName";
+
   static const DIO_BASE_URL = "https://your-api.com/";
   static const DIO_CONNECTION_TIMEOUT = 5000;
 
   static const JOBS_LIST_LIMIT = 10;
 
-  static const CURSOR_SHARED_PREF = "var_name";
+  static const CURSOR_SHARED_PREF = "const_name";
 
   static const ADMOB_APP_ID_ANDROID = "your-app-id";
   static const ADMOB_APP_ID_IOS = "your-app-id";
@@ -23,6 +25,11 @@ abstract class Configuration {
   static const APP_IOS_ID = 123456;
 
   static const DONATION_PAYPAL_LINK = "";
+
+  static const EVENT_RATING_APP = "const_name";
+  static const EVENT_SHOW_ABOUT_DIALOG = "const_name";
+  static const EVENT_OPEN_DONATION_LINK = "const_name";
+  static const EVENT_OPEN_JOB_LINK = "const_name";
 
   static String getAdmobAppId() {
     if (Platform.isAndroid) {

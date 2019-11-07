@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jobbeer_flutter/app/app_module.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 import 'package:jobbeer_flutter/app/pages/jobs/widgets/menu_drawer.dart';
 import 'package:jobbeer_flutter/app/pages/jobs/jobs_bloc.dart';
@@ -17,11 +19,15 @@ class JobsPage extends StatefulWidget {
 
 class _JobsPageState extends State<JobsPage> {
   final bloc = JobsModule.to.getBloc<JobsBloc>();
+  final analytics = AppModule.to.getDependency<FirebaseAnalytics>();
   bool _isBuildDoneOnce = false;
 
   @override
   void initState() {
     super.initState();
+
+    analytics.setCurrentScreen(screenName: widget.runtimeType.toString());
+
     SharedPreferences.getInstance().then((prefs) {
       //Clear the cursor value
       prefs.setString(Configuration.CURSOR_SHARED_PREF, "");
@@ -67,6 +73,20 @@ class _JobsPageState extends State<JobsPage> {
                 return ListView.builder(
                   itemBuilder: (context, index) {
                     if (index < jobs.length) {
+
+                      //We want to show an ad after the second item
+                      if (index == 2) {
+                        return Column(
+                          children: <Widget>[
+                            AdmobBanner(
+                              adUnitId: Configuration.getAdmobBannerId(),
+                              adSize: AdmobBannerSize.LARGE_BANNER,
+                            ),
+                            JobTile(jobs[index]),
+                          ],
+                        );
+                      }
+
                       if (index > 0 && index % 10 == 0) {
                         return Column(
                           children: <Widget>[
