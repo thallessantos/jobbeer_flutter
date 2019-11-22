@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -39,6 +40,25 @@ class MenuDrawer extends StatelessWidget {
             onTap: () {
               analytics.logEvent(name: Configuration.EVENT_SHOW_ABOUT_DIALOG);
               showDialog(context: context, builder: (_) => CustomAboutDialog());
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.share),
+            title: Text('Compartilhar'),
+            onTap: () {
+              analytics.logEvent(name: Configuration.EVENT_SHARING_APP);
+              String storeLink;
+              if (Platform.isAndroid)
+                storeLink = "https://play.google.com/store/apps/details?id=${Configuration.APP_PACKAGE_NAME}";
+              else if (Platform.isIOS)
+                storeLink = "https://itunes.apple.com/app/id${Configuration.APP_IOS_ID}?action=write-review";
+
+              Share.text(
+                "Jobbeer - Vagas para Programadores",
+                "Jobbeer - As melhores vagas para programadores reúnidas em um único app! 💼🍺\n"
+                    + storeLink,
+                "text/plain",
+              );
             },
           ),
         ],
