@@ -41,14 +41,6 @@ class MenuDrawer extends StatelessWidget {
               showDialog(context: context, builder: (_) => CustomAboutDialog());
             },
           ),
-          ListTile(
-            leading: Icon(Icons.tag_faces),
-            title: Text('Buy us a beer'),
-            onTap: () {
-              analytics.logEvent(name: Configuration.EVENT_OPEN_DONATION_LINK);
-              launch(Configuration.DONATION_PAYPAL_LINK);
-            },
-          ),
         ],
       ),
     );
