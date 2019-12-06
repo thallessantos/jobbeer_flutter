@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:jobbeer_flutter/app/shared/models/job_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:jobbeer_flutter/app/shared/configuration.dart';
@@ -25,6 +26,18 @@ class JobsRepository {
       JobsListModel jobsListModel = jobsListModelFromJson(response.data);
       prefs.setString(Configuration.CURSOR_SHARED_PREF, jobsListModel.pagination.cursor);
       return jobsListModel;
+    } on DioError catch (err) {
+      throw (err.message);
+    }
+  }
+
+  Future<JobModel> getJob(String jobId) async {
+    try {
+      //Do the GET request /jobs/jobId
+      var response = await _dio.instance.get("/jobs/$jobId");
+
+      JobModel jobModel = jobModelFromJson(response.data);
+      return jobModel;
     } on DioError catch (err) {
       throw (err.message);
     }

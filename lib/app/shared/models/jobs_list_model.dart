@@ -6,6 +6,10 @@ JobsListModel jobsListModelFromJson(String str) => JobsListModel.fromJson(json.d
 
 String jobsListModelToJson(JobsListModel data) => json.encode(data.toJson());
 
+JobModel jobModelFromJson(String str) => JobModel.fromJson(json.decode(str));
+
+String jobModelToJson(JobModel data) => json.encode(data.toJson());
+
 class JobsListModel {
   List<JobModel> jobs;
   Pagination pagination;

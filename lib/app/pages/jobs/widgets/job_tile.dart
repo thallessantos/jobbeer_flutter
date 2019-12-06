@@ -1,3 +1,4 @@
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -83,6 +84,28 @@ class JobTile extends StatelessWidget {
                 ),
               ),
               paddingBottom: 10,
+            ),
+            InkWell(
+              onTap: () => Share.text("", job.shareLink, "text/plain"),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    Icons.share,
+                    color: Colors.black87,
+                    size: ScreenUtil.getInstance().setSp(15),
+                  ),
+                  SizedBox(width: ScreenUtil.getInstance().setWidth(10)),
+                  Text(
+                    "Compartilhar",
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: ScreenUtil.getInstance().setSp(16),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

@@ -10,8 +10,8 @@ import 'package:jobbeer_flutter/app/shared/custom_dio/custom_dio.dart';
 class JobsModule extends ModuleWidget {
   @override
   List<Bloc> get blocs => [
-        Bloc((i) => JobsBloc(JobsModule.to.getDependency<JobsRepository>())),
-      ];
+    Bloc((i) => JobsBloc(JobsModule.to.getDependency<JobsRepository>())),
+  ];
 
   @override
   List<Dependency> get dependencies => [
